@@ -1,0 +1,30 @@
+{
+    "name": "cedroux/owbot",
+    "description": "A Discord bot for Overwatch players",
+    "type": "cli",
+    "keywords": [
+        "discord",
+        "bot",
+        "overwatch"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cédric Roux",
+            "email": "cedroux42@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "team-reflex/discord-php": "^4.0",
+        "paquettg/php-html-parser": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bot\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}

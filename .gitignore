@@ -1,4 +1,4 @@
 /vendor
-/db.json
+/storage
 /config/config.php
 .idea

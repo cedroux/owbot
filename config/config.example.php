@@ -10,7 +10,7 @@ return [
     /**
      * Database path
      */
-    'db_path' => __DIR__ . '/../db.json',
+    'db_path' => __DIR__ . '/../storage/db.json',
 
 
     /**

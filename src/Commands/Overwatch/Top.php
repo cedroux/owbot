@@ -36,7 +36,7 @@ class Top extends BaseCommand
                 $user = $this->message->channel->guild->members->get("id", $player->discord);
                 $nick = $user->nick; // Mandatory assignation to resolve the data
                 $name = ! empty($nick) ? $nick : $user->username;
-                if ($name !== $tag) {
+                if ($name !== $tag && ! empty($name)) {
                     $tag .= ' (' . $name . ')';
                 }
             }

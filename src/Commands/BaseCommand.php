@@ -9,19 +9,51 @@ use Discord\Parts\Channel\Message;
 abstract class BaseCommand
 {
     /**
-     * Command settings
+     * Keywords that will trigger the command
+     *
+     * @var string|array
      */
     public $keywords = [];
+
+    /**
+     * Determine if only admins can use the command
+     *
+     * @var bool
+     */
     public $admin = false;
-    public $typing = true;
+
+    /**
+     * Short help text (will be used in !help)
+     *
+     * @var string
+     */
     public $help = '';
+
+    /**
+     * Periodic execution of the command every n seconds
+     * If set to null, the command won't be executed periodically
+     *
+     * Note: Periodic execution can't use Message object since its
+     *       not triggered by a message event
+     *
+     * @var null|int
+     */
+    public $periodic = null;
+
     /**
      * Discord instance
      *
      * @var Discord
      */
     protected $discord;
+
+    /**
+     * Configuration repository
+     *
+     * @var array
+     */
     protected $config;
+
     /**
      * @var Message
      */
@@ -116,10 +148,6 @@ abstract class BaseCommand
      */
     public function send(string $string): void
     {
-        if ($this->typing === true) {
-            $this->message->channel->broadcastTyping();
-        }
-
         $this->message->channel->sendMessage($string);
     }
 

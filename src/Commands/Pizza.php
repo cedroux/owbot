@@ -6,7 +6,6 @@ class Pizza extends BaseCommand
 {
     public $keywords = ['!pizza'];
     public $help = 'Commande une pizza';
-    public $typing = true;
 
     public function execute()
     {

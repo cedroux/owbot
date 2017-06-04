@@ -56,14 +56,30 @@ final class Bot
     }
 
     /**
+     * Start periodic commands
+     */
+    public function startPeriodic()
+    {
+        foreach ($this->commands as $command) {
+            if ($command->periodic !== null) {
+                $this->discord->loop->addPeriodicTimer($command->periodic, function () use ($command) {
+                    $command->execute();
+                });
+            }
+        }
+    }
+
+    /**
      * Description
      */
     public function start()
     {
+        $this->startPeriodic();
+
         $this->discord->on('ready', function (Discord $discord) {
             $this->discord->on('message', function (Message $message, Discord $discord) {
                 echo "{$message->author->username}: {$message->content}" . PHP_EOL;
-                
+
                 foreach ($this->commands as $command) {
                     if ($command->triggersOn($message)) {
                         $command->start();
@@ -76,6 +92,8 @@ final class Bot
     }
 
     /**
+     * Get Discord instance
+     *
      * @return Discord
      */
     public function getDiscord(): Discord
@@ -84,6 +102,8 @@ final class Bot
     }
 
     /**
+     * Get config repository
+     *
      * @return array
      */
     public function getConfig(): array
@@ -92,6 +112,8 @@ final class Bot
     }
 
     /**
+     * Get list of registered commands
+     *
      * @return array
      */
     public function getCommands(): array

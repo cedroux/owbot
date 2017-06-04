@@ -13,7 +13,6 @@ class Help extends BaseCommand
 {
     public $keywords = ['!help', '!info', '!commands'];
     public $help = 'Affiche les différentes commandes disponibles';
-    public $typing = true;
 
     public function execute()
     {

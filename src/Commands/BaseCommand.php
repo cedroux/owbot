@@ -9,25 +9,23 @@ use Discord\Parts\Channel\Message;
 abstract class BaseCommand
 {
     /**
-     * Discord instance
-     *
-     * @var Discord
-     */
-    protected $discord;
-    protected $config;
-
-    /**
-     * @var Message
-     */
-    protected $message;
-
-    /**
      * Command settings
      */
     public $keywords = [];
     public $admin = false;
     public $typing = true;
     public $help = '';
+    /**
+     * Discord instance
+     *
+     * @var Discord
+     */
+    protected $discord;
+    protected $config;
+    /**
+     * @var Message
+     */
+    protected $message;
 
     /**
      * Command constructor.
@@ -79,8 +77,8 @@ abstract class BaseCommand
     }
 
     /**
-     * Checks if the command requires admin rights, and if so,
-     * checks if the user is authorized
+     * Check if the command requires admin rights, and if so,
+     * check if the user is authorized
      *
      * @return bool
      */
@@ -95,7 +93,7 @@ abstract class BaseCommand
 
 
     /**
-     * Check if the author is admin
+     * Check if the author is an admin
      *
      * @return bool
      */
@@ -112,7 +110,7 @@ abstract class BaseCommand
     abstract protected function execute();
 
     /**
-     * Sends a message on the triggering channel
+     * Send a message on the triggering channel
      *
      * @param $string
      */
@@ -133,5 +131,22 @@ abstract class BaseCommand
     public function reply(string $string): void
     {
         $this->message->reply($string);
+    }
+
+    /**
+     * Send a message to all channels configured as 'broadcast'
+     *
+     * @param string $string
+     */
+    public function broadcast(string $string): void
+    {
+        foreach ($this->config['broadcast'] as $guild => $channels) {
+            foreach ($channels as $channel) {
+                $this->discord
+                    ->guilds->get('id', $guild)
+                    ->channels->get('id', $channel)
+                    ->sendMessage($string);
+            }
+        }
     }
 }

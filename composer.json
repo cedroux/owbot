@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "team-reflex/discord-php": "^4.0",
+        "team-reflex/discord-php": "dev-develop",
         "paquettg/php-html-parser": "^1.7"
     },
     "autoload": {
@@ -24,7 +24,7 @@
             "Bot\\": "src"
         },
         "files": [
-          "src/Commands/Overwatch/helpers.php"
+            "src/Commands/Overwatch/helpers.php"
         ]
     }
 }

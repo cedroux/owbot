@@ -16,6 +16,7 @@ $bot->registerCommand(\Bot\Commands\Help::class);
 $bot->registerCommand(\Bot\Commands\AdminSetGame::class);
 $bot->registerCommand(\Bot\Commands\AdminRestart::class);
 $bot->registerCommand(\Bot\Commands\AdminExit::class);
+$bot->registerCommand(\Bot\Commands\About::class);
 
 // Overwatch
 $bot->registerCommand(\Bot\Commands\Overwatch\PlayerRank::class);

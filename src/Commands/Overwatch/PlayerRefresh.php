@@ -11,6 +11,7 @@ class PlayerRefresh extends BaseCommand
     public $keywords = '!refresh';
     public $admin = true;
     public $help = 'Actualise le classement';
+    public $periodic = 60 * 5;
 
     public function execute()
     {
@@ -24,9 +25,9 @@ class PlayerRefresh extends BaseCommand
             $diff = $newRank - $player->rank;
 
             if ($diff < 0) {
-                $this->send(":x: {$tag} vient de perdre **" . abs($diff) . "** points. Nouveau classement : **{$newRank}**");
+                $this->broadcast(":x: {$tag} vient de perdre **" . abs($diff) . "** points. Nouveau classement : **{$newRank}**");
             } elseif ($newRank > $player->rank) {
-                $this->send(":white_check_mark: {$tag} vient de gagner **{$diff}** points. Nouveau classement : **{$newRank}**");
+                $this->broadcast(":white_check_mark: {$tag} vient de gagner **{$diff}** points. Nouveau classement : **{$newRank}**");
             }
             $player->rank = $newRank;
             Database::update($player, 'battletag', $player->battletag);

@@ -146,7 +146,7 @@ abstract class BaseCommand
      *
      * @param $string
      */
-    public function send(string $string): void
+    public function send(string $string)
     {
         $this->message->channel->sendMessage($string);
     }
@@ -156,7 +156,7 @@ abstract class BaseCommand
      *
      * @param string $string
      */
-    public function reply(string $string): void
+    public function reply(string $string)
     {
         $this->message->reply($string);
     }
@@ -166,7 +166,7 @@ abstract class BaseCommand
      *
      * @param string $string
      */
-    public function broadcast(string $string): void
+    public function broadcast(string $string)
     {
         foreach ($this->config['broadcast'] as $guild => $channels) {
             foreach ($channels as $channel) {

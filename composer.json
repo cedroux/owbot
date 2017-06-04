@@ -24,7 +24,7 @@
             "Bot\\": "src"
         },
         "files": [
-            "src/helpers.php"
+          "src/Commands/Overwatch/helpers.php"
         ]
     }
 }

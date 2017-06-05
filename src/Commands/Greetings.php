@@ -8,6 +8,6 @@ class Greetings extends BaseCommand
 
     public function execute()
     {
-        $this->reply('stoi le ' . $this->message->content);
+        $this->send("Bienvenue agent <@{$this->message->author->id}> ! Pour connaître les commandes disponibles envoie **!help**");
     }
 }

@@ -78,7 +78,8 @@ final class Bot
 
         $this->discord->on('ready', function (Discord $discord) {
             $this->discord->on('message', function (Message $message, Discord $discord) {
-                echo "{$message->author->username}: {$message->content}" . PHP_EOL;
+                echo "[{$message->channel->guild->name}][#{$message->channel->name}] {$message->author->username}: ";
+                echo $message->content . PHP_EOL;
 
                 foreach ($this->commands as $command) {
                     if ($command->triggersOn($message)) {

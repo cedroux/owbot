@@ -144,11 +144,13 @@ abstract class BaseCommand
     /**
      * Send a message on the triggering channel
      *
-     * @param $string
+     * @param string $string
+     * @param bool $tts
+     * @param null $embed
      */
-    public function send(string $string)
+    public function send(string $string, $tts = false, $embed = null)
     {
-        $this->message->channel->sendMessage($string);
+        $this->message->channel->sendMessage($string, $tts, $embed);
     }
 
     /**

@@ -42,7 +42,10 @@ final class Bot
     function __construct()
     {
         $this->config = require __DIR__ . '/../config/config.php';
-        $this->discord = new Discord(['token' => $this->config['token']]);
+        $this->discord = new Discord([
+            'token' => $this->config['token'],
+            'logging' => false,
+        ]);
     }
 
     /**

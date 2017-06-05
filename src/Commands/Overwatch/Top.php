@@ -7,8 +7,8 @@ use Bot\Database;
 
 class Top extends BaseCommand
 {
-    public $keywords = '!top';
-    public $help = 'Affiche le classement compétitif des joueurs';
+    public $keywords = '!top2';
+    public $help = 'Affiche le classement compétitif des joueurs (enrichi)';
 
     public function execute()
     {
@@ -16,6 +16,7 @@ class Top extends BaseCommand
 
         if (count($players) === 0) {
             $this->send("Aucun joueur enregistré");
+
             return;
         }
 
@@ -23,28 +24,47 @@ class Top extends BaseCommand
             return $a->rank < $b->rank;
         });
 
-        $output = '';
-        $output .= 'Classement compétitif des joueurs :' . PHP_EOL;
-        $output .= '```' . PHP_EOL;
-        $output .= ' #  Battletag               Rank' . PHP_EOL;
-        $output .= '——————————————————————————————————' . PHP_EOL;
+        $names = '';
+        $discord = '';
+        $ranks = '';
+        $guild = $this->message->channel->guild->id;
+        $blank = get_emoji($guild, ':blank:');
 
         foreach ($players as $key => $player) {
-            $tag = explode('#', $player->battletag)[0];
+            $tag = '**' . explode('#', $player->battletag)[0] . '**';
 
             if (! empty($player->discord)) {
-                $user = $this->message->channel->guild->members->get("id", $player->discord);
-                $nick = $user->nick; // Mandatory assignation to resolve the data
-                $name = ! empty($nick) ? $nick : $user->username;
-                if ($name !== $tag && ! empty($name)) {
-                    $tag .= ' (' . $name . ')';
-                }
+                $discord .= "<@!{$player->discord}>" . $blank . PHP_EOL;
+            } else {
+                $discord .= $blank . PHP_EOL;
             }
-            $output .= str_pad($key + 1, 2, ' ', STR_PAD_LEFT) . '  ';
-            $output .= str_pad($tag, 24 + (strlen($tag) - mb_strlen($tag)));
-            $output .= $player->rank . PHP_EOL;
+            $names .= get_emoji($guild, ':rank' . get_rank($player->rank) . ':') . $tag . PHP_EOL;
+            $ranks .= $player->rank . $blank . PHP_EOL;
         }
-        $output .= "```";
-        $this->send($output);
+
+        $embed = [
+            "color"       => 0x325091,
+            'title'       => 'Classement compétitif des joueurs :',
+            'description' => '—',
+            'fields'      => [
+                [
+                    'name'   => 'Battletag',
+                    'value'  => $names,
+                    'inline' => 'true',
+                ],
+                [
+                    'name'   => 'Discord',
+                    'value'  => $discord,
+                    'inline' => 'true',
+                ],
+                [
+                    'name'   => 'Rank',
+                    'value'  => $ranks,
+                    'inline' => 'true',
+                ],
+            ],
+        ];
+
+        $this->send('', false, $embed);
     }
 }

@@ -25,5 +25,6 @@ $bot->registerCommand(\Bot\Commands\Overwatch\PlayerAddMe::class);
 $bot->registerCommand(\Bot\Commands\Overwatch\PlayerDelete::class);
 $bot->registerCommand(\Bot\Commands\Overwatch\PlayerRefresh::class);
 $bot->registerCommand(\Bot\Commands\Overwatch\Top::class);
+$bot->registerCommand(\Bot\Commands\Overwatch\TopRaw::class);
 
 $bot->start();

@@ -13,19 +13,38 @@ return [
     'db_path' => __DIR__ . '/../storage/db.json',
 
     /*
-     * Channels used for broadcasting
-     */
-    'broadcast' => [
-        '##GUILD_ID##' => [
-            '##CHANNEL_ID##',
-        ],
-    ],
-
-    /*
      * Bot administrators
      */
     'admin' => [
         //
+    ],
+
+    /*
+     * Channels used for broadcasting
+     */
+    'broadcast' => [
+        '##GUILD_1_ID##' => [
+            '##CHANNEL_1_ID##',
+            '##CHANNEL_2_ID##',
+        ],
+    ],
+
+    /*
+     * Emojis
+     *
+     * The blank emoji is a transparent emoji used for alignments
+     */
+    'emojis' => [
+        '##GUILD_1_ID##' => [
+            ':rank1:' => '##ID##',
+            ':rank2:' => '##ID##',
+            ':rank3:' => '##ID##',
+            ':rank4:' => '##ID##',
+            ':rank5:' => '##ID##',
+            ':rank6:' => '##ID##',
+            ':rank7:' => '##ID##',
+            ':blank:' => '##ID##',
+        ],
     ],
 
 ];

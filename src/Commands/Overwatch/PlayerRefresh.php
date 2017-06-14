@@ -27,9 +27,9 @@ class PlayerRefresh extends BaseCommand
             $discord = ! empty($player->discord) ? "(<@!{$player->discord}>) " : '';
 
             if ($diff < 0) {
-                $this->broadcast(":x: {$tag} {$discord}vient de perdre **" . abs($diff) . "** points. Nouveau classement : **{$newRank}**");
+                $this->broadcast("❌ {$tag} {$discord}vient de perdre **" . abs($diff) . "** points. Nouveau classement : **{$newRank}**");
             } elseif ($newRank > $player->rank) {
-                $this->broadcast(":white_check_mark: {$tag} {$discord}vient de gagner **{$diff}** points. Nouveau classement : **{$newRank}**");
+                $this->broadcast("✅ {$tag} {$discord}vient de gagner **{$diff}** points. Nouveau classement : **{$newRank}**");
             }
             $player->rank = $newRank;
             Database::update($player, 'battletag', $player->battletag);

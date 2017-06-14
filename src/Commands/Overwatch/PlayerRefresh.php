@@ -5,6 +5,7 @@ namespace Bot\Commands\Overwatch;
 use Bot\Commands\BaseCommand;
 use Bot\Database;
 use Bot\Parser;
+use Exception;
 
 class PlayerRefresh extends BaseCommand
 {
@@ -20,7 +21,13 @@ class PlayerRefresh extends BaseCommand
         foreach ($players as $player) {
             echo '-- Updating ' . $player->battletag . '...' . PHP_EOL;
 
-            $newRank = Parser::rank($player->battletag);
+            try {
+                $newRank = Parser::rank($player->battletag);
+            } catch (Exception $e) {
+                echo $e->getMessage() . PHP_EOL;
+                continue;
+            }
+
             $tag = explode('#', $player->battletag)[0];
             $diff = $newRank - $player->rank;
 

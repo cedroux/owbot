@@ -2,6 +2,7 @@
 
 namespace Bot;
 
+use Exception;
 use PHPHtmlParser\Dom;
 
 class Parser
@@ -49,7 +50,8 @@ class Parser
     /**
      * Get rank
      *
-     * @return integer|bool
+     * @return int
+     * @throws Exception
      */
     public function getRank(): int
     {
@@ -57,7 +59,7 @@ class Parser
         $rank = $this->dom->find('.competitive-rank div');
 
         if (! $rank->count()) {
-            return false;
+            throw new Exception('Rank not found for ' . $this->battletag);
         }
 
         return (int) $rank->text;

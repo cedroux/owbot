@@ -48,6 +48,11 @@ class Top extends BaseCommand
             'description' => '—',
             'fields'      => [
                 [
+                    'name'   => 'Rank',
+                    'value'  => $ranks,
+                    'inline' => 'true',
+                ],
+                [
                     'name'   => 'Battletag',
                     'value'  => $names,
                     'inline' => 'true',
@@ -55,11 +60,6 @@ class Top extends BaseCommand
                 [
                     'name'   => 'Discord',
                     'value'  => $discord,
-                    'inline' => 'true',
-                ],
-                [
-                    'name'   => 'Rank',
-                    'value'  => $ranks,
                     'inline' => 'true',
                 ],
             ],

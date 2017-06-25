@@ -35,8 +35,8 @@ class TopRaw extends BaseCommand
 
             if (! empty($player->discord)) {
                 $user = $this->message->channel->guild->members->get("id", $player->discord);
-                $nick = $user->nick; // Mandatory assignation to resolve the data
-                $name = ! empty($nick) ? $nick : $user->username;
+                $nick = $user->nick ?? null; // Mandatory assignation to resolve the data
+                $name = ! empty($nick) ? $nick : $user->username ?? null;
                 if ($name !== $tag && ! empty($name)) {
                     $tag .= ' (' . $name . ')';
                 }

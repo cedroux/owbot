@@ -38,8 +38,8 @@ class Top extends BaseCommand
             } else {
                 $discord .= $blank . PHP_EOL;
             }
-            $names .= get_emoji($guild, ':rank' . get_rank($player->rank) . ':') . $tag . PHP_EOL;
-            $ranks .= $player->rank . $blank . PHP_EOL;
+            $names .= $tag . $blank . PHP_EOL;
+            $ranks .= get_emoji($guild, ':rank' . get_rank($player->rank) . ':') . $player->rank . PHP_EOL;
         }
 
         $embed = [
@@ -48,6 +48,11 @@ class Top extends BaseCommand
             'description' => '—',
             'fields'      => [
                 [
+                    'name'   => 'Rank',
+                    'value'  => $ranks,
+                    'inline' => 'true',
+                ],
+                [
                     'name'   => 'Battletag',
                     'value'  => $names,
                     'inline' => 'true',
@@ -55,11 +60,6 @@ class Top extends BaseCommand
                 [
                     'name'   => 'Discord',
                     'value'  => $discord,
-                    'inline' => 'true',
-                ],
-                [
-                    'name'   => 'Rank',
-                    'value'  => $ranks,
                     'inline' => 'true',
                 ],
             ],

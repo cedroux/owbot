@@ -1,8 +1,8 @@
 # OWBot
-A Discord bot for Overwatch players
 
 ## Introduction
-OWBot is a simple bot for Discord written in PHP. It allows player to track their competive ranking among other players of a Discord server.
+OWBot is a simple Discord bot for Overwatch players.  
+It allows players to track their competive ranking points and compare themselves to other players of the server.
 
 
 ## Available commands

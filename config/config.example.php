@@ -33,6 +33,9 @@ return [
      * Emojis
      *
      * The blank emoji is a transparent emoji used for alignments
+     *
+     * To get the ID of an emoji, write it in any Discord chat prefixed with a backslash.
+     * Example: \:rank1:
      */
     'emojis' => [
         '##GUILD_1_ID##' => [

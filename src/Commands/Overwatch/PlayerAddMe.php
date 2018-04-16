@@ -21,7 +21,13 @@ class PlayerAddMe extends BaseCommand
             return;
         }
 
-        $rank = Parser::rank($battletag);
+        try {
+            $rank = Parser::rank($battletag);
+        } catch (Exception $e) {
+            $this->send($e->getMessage());
+            return;
+        }
+
         $tag = explode('#', $battletag)[0];
 
         if (!$rank) {

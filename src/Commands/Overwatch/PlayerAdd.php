@@ -5,6 +5,7 @@ namespace Bot\Commands\Overwatch;
 use Bot\Commands\BaseCommand;
 use Bot\Database;
 use Bot\Parser;
+use Exception;
 
 class PlayerAdd extends BaseCommand
 {
@@ -22,7 +23,12 @@ class PlayerAdd extends BaseCommand
             return;
         }
 
-        $rank = Parser::rank($battletag);
+        try {
+            $rank = Parser::rank($battletag);
+        } catch (Exception $e) {
+            $this->send($e->getMessage());
+            return;
+        }
         $tag = explode('#', $battletag)[0];
 
         if (!$rank) {

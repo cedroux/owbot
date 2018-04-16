@@ -7,7 +7,7 @@ use PHPHtmlParser\Dom;
 
 class Parser
 {
-    const URL = 'https://playoverwatch.com/fr-fr/career/pc/eu/';
+    const URL = 'https://playoverwatch.com/fr-fr/career/pc/';
 
     /**
      * Parsed Battletag
@@ -60,7 +60,7 @@ class Parser
         $rank = $this->dom->find('.competitive-rank div');
 
         if (!$rank->count()) {
-            throw new Exception('Rank not found for ' . $this->battletag);
+            throw new Exception('Unable to retrieve rank for ' . str_replace('-', '#', $this->battletag));
         }
 
         return (int)$rank->text;

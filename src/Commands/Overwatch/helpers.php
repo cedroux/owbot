@@ -5,9 +5,9 @@ if (!function_exists('get_rank')) {
      * Convert rank value to rank id
      *
      * @param int $rank
-     * @return int
+     * @return int|null
      */
-    function get_rank(int $rank): int
+    function get_rank(int $rank): ?int
     {
         if ($rank < 1500) {
             return 1;
@@ -24,6 +24,8 @@ if (!function_exists('get_rank')) {
         } elseif ($rank >= 4000) {
             return 7;
         }
+
+        return null;
     }
 }
 

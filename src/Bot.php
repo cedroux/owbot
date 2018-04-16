@@ -2,18 +2,27 @@
 
 namespace Bot;
 
+use Bot\Commands\BaseCommand;
 use Bot\Database as Database;
-use Discord\Discord;
-use Discord\Parts\Channel\Message;
+use CharlotteDunois\Yasmin\Client;
+use CharlotteDunois\Yasmin\Models\Message;
+use React\EventLoop\Factory;
 
 final class Bot
 {
     /**
-     * The Discord instance.
+     * The Discord client loop instance.
      *
-     * @var Discord
+     * @var mixed
      */
-    protected $discord;
+    protected $loop;
+
+    /**
+     * The Client instance.
+     *
+     * @var Client
+     */
+    protected $client;
 
     /**
      * The Database instance.
@@ -38,14 +47,14 @@ final class Bot
 
     /**
      * Bot constructor.
+     *
+     * @throws \Exception
      */
     function __construct()
     {
         $this->config = require __DIR__ . '/../config/config.php';
-        $this->discord = new Discord([
-            'token'   => $this->config['token'],
-            'logging' => false,
-        ]);
+        $this->loop = Factory::create();
+        $this->client = new Client([], $this->loop);
     }
 
     /**
@@ -65,7 +74,7 @@ final class Bot
     {
         foreach ($this->commands as $command) {
             if ($command->periodic !== null) {
-                $this->discord->loop->addPeriodicTimer($command->periodic, function () use ($command) {
+                $this->loop->addPeriodicTimer($command->periodic, function () use ($command) {
                     $command->execute();
                 });
             }
@@ -79,30 +88,38 @@ final class Bot
     {
         $this->startPeriodic();
 
-        $this->discord->on('ready', function (Discord $discord) {
-            $this->discord->on('message', function (Message $message, Discord $discord) {
-                echo "[{$message->channel->guild->name}][#{$message->channel->name}] {$message->author->username}: ";
+        $this->client->on('ready', function () {
+            echo 'Logged in as ' . $this->getClient()->user->tag . PHP_EOL;
+        });
+
+        try {
+            $this->client->on('message', function (Message $message) {
+                echo "[{$message->guild->name}][#{$message->channel->name}] {$message->author->username}: ";
                 echo $message->content . PHP_EOL;
 
                 foreach ($this->commands as $command) {
+                    /** @var BaseCommand $command */
                     if ($command->triggersOn($message)) {
                         $command->start();
                     }
                 }
             });
-        });
+        } catch (\Exception $e) {
+            echo '----------------- ' . $e->getMessage() . PHP_EOL;
+        }
 
-        $this->discord->run();
+        $this->client->login($this->config['token']);
+        $this->loop->run();
     }
 
     /**
-     * Get Discord instance
+     * Get Client instance
      *
-     * @return Discord
+     * @return
      */
-    public function getDiscord(): Discord
+    public function getClient()
     {
-        return $this->discord;
+        return $this->client;
     }
 
     /**

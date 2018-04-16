@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^7.1",
-        "team-reflex/discord-php": "dev-develop",
+        "charlottedunois/yasmin": "^0.4.0",
         "paquettg/php-html-parser": "^1.7"
     },
     "autoload": {

@@ -3,8 +3,9 @@
 namespace Bot\Commands;
 
 use Bot\Bot;
-use Discord\Discord;
-use Discord\Parts\Channel\Message;
+use CharlotteDunois\Yasmin\Client;
+use CharlotteDunois\Yasmin\Models\Message;
+use CharlotteDunois\Yasmin\Models\MessageEmbed;
 
 abstract class BaseCommand
 {
@@ -41,11 +42,11 @@ abstract class BaseCommand
     public $periodic = null;
 
     /**
-     * Discord instance
+     * Discord client instance
      *
-     * @var Discord
+     * @var Client
      */
-    protected $discord;
+    protected $client;
 
     /**
      * Configuration repository
@@ -67,7 +68,7 @@ abstract class BaseCommand
     function __construct(Bot &$bot)
     {
         $this->bot = $bot;
-        $this->discord = $bot->getDiscord();
+        $this->client = $bot->getClient();
         $this->config = $bot->getConfig();
 
         echo 'New command registered: ' . get_class($this) . PHP_EOL;
@@ -105,7 +106,9 @@ abstract class BaseCommand
             return false;
         }
 
+        $this->message->channel->startTyping();
         $this->execute();
+        $this->message->channel->stopTyping();
 
         return true;
     }
@@ -125,7 +128,6 @@ abstract class BaseCommand
         return $this->isAdmin();
     }
 
-
     /**
      * Check if the author is an admin
      *
@@ -133,7 +135,7 @@ abstract class BaseCommand
      */
     public function isAdmin(): bool
     {
-        return in_array($this->message->author->user->id, $this->config['admin']);
+        return in_array($this->message->author->id, $this->config['admin']);
     }
 
     /**
@@ -147,12 +149,11 @@ abstract class BaseCommand
      * Send a message on the triggering channel
      *
      * @param string $string
-     * @param bool $tts
-     * @param null $embed
+     * @param MessageEmbed $embed
      */
-    public function send(string $string, $tts = false, $embed = null)
+    public function send(string $string, MessageEmbed $embed = null)
     {
-        $this->message->channel->sendMessage($string, $tts, $embed);
+        $this->message->channel->send($string, ['embed' => $embed]);
     }
 
     /**
@@ -174,10 +175,7 @@ abstract class BaseCommand
     {
         foreach ($this->config['broadcast'] as $guild => $channels) {
             foreach ($channels as $channel) {
-                $this->discord
-                    ->guilds->get('id', $guild)
-                    ->channels->get('id', $channel)
-                    ->sendMessage($string);
+                $this->client->guilds->get($guild)->channels->get($channel)->send($string);
             }
         }
     }

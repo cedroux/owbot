@@ -3,7 +3,10 @@
 return [
 
     /*
-     * Discord API token
+     * Discord bot token
+     *
+     * 1. Create a new application (https://discordapp.com/developers/applications/me)
+     * 2. In the App settings, click on "Create a Bot User"
      */
     'token' => '##API_TOKEN##',
 

@@ -38,6 +38,7 @@ final class Database
      * Gets the instance via lazy initialization (created on first usage)
      *
      * @return Database
+     * @throws Exception
      */
     public static function getInstance(): Database
     {
@@ -61,7 +62,7 @@ final class Database
     {
         $db = self::getInstance();
 
-        if (! file_exists($db->path)) {
+        if (!file_exists($db->path)) {
             $handle = fopen($db->path, 'w');
             if ($handle === false) {
                 throw new Exception('Impossible de créer la base');
@@ -105,12 +106,13 @@ final class Database
      * @param string|null $where
      * @param string|null $search
      * @return mixed
+     * @throws Exception
      */
     static public function select($where = null, $search = null)
     {
         $db = self::getInstance();
 
-        if (! isset($db->data)) {
+        if (!isset($db->data)) {
             return null;
         }
         if ($where && $search) {
@@ -133,6 +135,7 @@ final class Database
      * @param string $where
      * @param string $search
      * @return mixed
+     * @throws Exception
      */
     static public function update($value, $where, $search)
     {
@@ -140,7 +143,7 @@ final class Database
 
         foreach ($db->data as &$item) {
             if (isset($item->$where) && $item->$where == $search) {
-                $item = (object) $value;
+                $item = (object)$value;
 
                 return $db->saveDB();
             }
@@ -154,12 +157,13 @@ final class Database
      *
      * @param mixed $value
      * @return bool
+     * @throws Exception
      */
     static public function insert($value)
     {
         $db = self::getInstance();
 
-        $db->data[] = (object) $value;
+        $db->data[] = (object)$value;
 
         return $db->saveDB();
     }
@@ -170,6 +174,7 @@ final class Database
      * @param string $where
      * @param string $search
      * @return bool
+     * @throws Exception
      */
     static public function delete($where, $search)
     {

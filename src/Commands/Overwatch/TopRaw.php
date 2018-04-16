@@ -33,11 +33,11 @@ class TopRaw extends BaseCommand
         foreach ($players as $key => $player) {
             $tag = explode('#', $player->battletag)[0];
 
-            if (! empty($player->discord)) {
+            if (!empty($player->discord)) {
                 $user = $this->message->channel->guild->members->get("id", $player->discord);
                 $nick = $user->nick ?? null; // Mandatory assignation to resolve the data
-                $name = ! empty($nick) ? $nick : $user->username ?? null;
-                if ($name !== $tag && ! empty($name)) {
+                $name = !empty($nick) ? $nick : $user->username ?? null;
+                if ($name !== $tag && !empty($name)) {
                     $tag .= ' (' . $name . ')';
                 }
             }

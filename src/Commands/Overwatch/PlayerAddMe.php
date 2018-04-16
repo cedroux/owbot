@@ -24,7 +24,7 @@ class PlayerAddMe extends BaseCommand
         $rank = Parser::rank($battletag);
         $tag = explode('#', $battletag)[0];
 
-        if (! $rank) {
+        if (!$rank) {
             $this->send("Joueur inconnu ou non classé : {$battletag}");
 
             return;
@@ -43,7 +43,7 @@ class PlayerAddMe extends BaseCommand
             $player->discord = $this->message->author->id;
             Database::update($player, 'battletag', $player->battletag);
             $this->send("{$tag} a été lié à votre identifiant Discord");
-        } elseif (! empty($player->discord)) {
+        } elseif (!empty($player->discord)) {
             $this->send("Ce Battletag est déjà lié à un identifiant Discord");
         }
     }

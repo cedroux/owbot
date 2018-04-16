@@ -25,7 +25,7 @@ class PlayerAdd extends BaseCommand
         $rank = Parser::rank($battletag);
         $tag = explode('#', $battletag)[0];
 
-        if (! $rank) {
+        if (!$rank) {
             $this->send("Joueur inconnu ou non classé : {$battletag}");
         } elseif (empty(Database::select('battletag', $battletag))) {
             Database::insert([

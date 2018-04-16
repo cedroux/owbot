@@ -106,6 +106,8 @@ abstract class BaseCommand
         }
 
         $this->execute();
+
+        return true;
     }
 
     /**

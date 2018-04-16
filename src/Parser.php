@@ -41,6 +41,7 @@ class Parser
      *
      * @param string $battletag
      * @return integer
+     * @throws Exception
      */
     static public function rank(string $battletag)
     {
@@ -58,10 +59,10 @@ class Parser
         /** @var Dom\Collection $rank */
         $rank = $this->dom->find('.competitive-rank div');
 
-        if (! $rank->count()) {
+        if (!$rank->count()) {
             throw new Exception('Rank not found for ' . $this->battletag);
         }
 
-        return (int) $rank->text;
+        return (int)$rank->text;
     }
 }

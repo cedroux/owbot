@@ -31,7 +31,7 @@ class PlayerRefresh extends BaseCommand
             $tag = explode('#', $player->battletag)[0];
             $diff = $newRank - $player->rank;
 
-            $discord = ! empty($player->discord) ? "(<@!{$player->discord}>) " : '';
+            $discord = !empty($player->discord) ? "(<@!{$player->discord}>) " : '';
 
             if ($diff < 0) {
                 $this->broadcast("❌ {$tag} {$discord}vient de perdre **" . abs($diff) . "** points. Nouveau classement : **{$newRank}**");

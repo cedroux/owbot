@@ -1,6 +1,6 @@
 <?php
 
-if (! function_exists('get_rank')) {
+if (!function_exists('get_rank')) {
     /**
      * Convert rank value to rank id
      *
@@ -27,7 +27,7 @@ if (! function_exists('get_rank')) {
     }
 }
 
-if (! function_exists('get_emoji')) {
+if (!function_exists('get_emoji')) {
     /**
      * Return formated emoji code
      *

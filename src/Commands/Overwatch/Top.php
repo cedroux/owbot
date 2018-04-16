@@ -33,7 +33,7 @@ class Top extends BaseCommand
         foreach ($players as $key => $player) {
             $tag = '**' . explode('#', $player->battletag)[0] . '**';
 
-            if (! empty($player->discord)) {
+            if (!empty($player->discord)) {
                 $discord .= "<@!{$player->discord}>" . $blank . PHP_EOL;
             } else {
                 $discord .= $blank . PHP_EOL;

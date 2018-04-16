@@ -25,7 +25,7 @@ class PlayerDelete extends BaseCommand
 
         $player = Database::select('battletag', $battletag);
 
-        if (! empty($player)) {
+        if (!empty($player)) {
             Database::delete('battletag', $battletag);
             $this->send("{$tag} a été retiré du classement");
         } else {

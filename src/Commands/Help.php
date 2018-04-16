@@ -27,7 +27,7 @@ class Help extends BaseCommand
                 $key = is_array($command->keywords) ? $command->keywords[0] : $command->keywords;
             }
 
-            if (! empty($command->help) && ! $command->admin && ! in_array('admin', $arguments)) {
+            if (!empty($command->help) && !$command->admin && !in_array('admin', $arguments)) {
                 $message .= "**{$key}** {$command->help}\n";
             } elseif (in_array('admin', $arguments) && $command->admin && $this->isAdmin()) {
                 $message .= "**{$key}** {$command->help}\n";

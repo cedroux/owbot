@@ -23,7 +23,7 @@ class PlayerRank extends BaseCommand
         $rank = Parser::rank($battletag);
         $tag = explode('#', $battletag)[0];
 
-        if (! $rank) {
+        if (!$rank) {
             $this->send("Joueur inconnu : {$battletag}");
         } else {
             $this->send("Le rang de **{$tag}** est **{$rank}**");

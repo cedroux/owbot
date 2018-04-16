@@ -16,6 +16,7 @@
         }
     ],
     "require": {
+        "php": "^7.1",
         "team-reflex/discord-php": "dev-develop",
         "paquettg/php-html-parser": "^1.7"
     },

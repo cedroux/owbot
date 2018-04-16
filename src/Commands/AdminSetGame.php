@@ -2,8 +2,6 @@
 
 namespace Bot\Commands;
 
-use Discord\Parts\User\Game;
-
 class AdminSetGame extends BaseCommand
 {
     public $keywords = ['!setgame', '!game', '!play'];
@@ -15,20 +13,17 @@ class AdminSetGame extends BaseCommand
         $stop = ['stop', 'off'];
 
         if (strpos($this->message->content, ' ')) {
-            $arg = substr($this->message->content, strpos($this->message->content, ' ') + 1);
+            $game = substr($this->message->content, strpos($this->message->content, ' ') + 1);
         } else {
-            $arg = null;
+            $game = null;
         }
 
-        if (in_array($arg, $stop) || $arg === null) {
+        if (in_array($game, $stop) || $game === null) {
             $game = null;
             $this->send('gg ez');
         } else {
-            $game = $this->discord->factory(Game::class, [
-                'name' => $arg,
-            ]);
             $this->send('brb!');
         }
-        $this->discord->updatePresence($game);
+        $this->client->user->setGame($game);
     }
 }

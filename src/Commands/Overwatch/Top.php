@@ -4,6 +4,7 @@ namespace Bot\Commands\Overwatch;
 
 use Bot\Commands\BaseCommand;
 use Bot\Database;
+use CharlotteDunois\Yasmin\Models\MessageEmbed;
 
 class Top extends BaseCommand
 {
@@ -14,7 +15,7 @@ class Top extends BaseCommand
     {
         $players = Database::select();
 
-        if (count($players) === 0) {
+        if (!is_array($players) || count($players) === 0) {
             $this->send("Aucun joueur enregistré");
 
             return;
@@ -27,7 +28,7 @@ class Top extends BaseCommand
         $names = '';
         $discord = '';
         $ranks = '';
-        $guild = $this->message->channel->guild->id;
+        $guild = $this->message->guild->id;
         $blank = get_emoji($guild, ':blank:');
 
         foreach ($players as $key => $player) {
@@ -42,7 +43,7 @@ class Top extends BaseCommand
             $ranks .= get_emoji($guild, ':rank' . get_rank($player->rank) . ':') . $player->rank . PHP_EOL;
         }
 
-        $embed = [
+        $embed = new MessageEmbed([
             "color"       => 0x325091,
             'title'       => 'Classement compétitif des joueurs :',
             'description' => '—',
@@ -63,8 +64,8 @@ class Top extends BaseCommand
                     'inline' => 'true',
                 ],
             ],
-        ];
+        ]);
 
-        $this->send('', false, $embed);
+        $this->send('', $embed);
     }
 }

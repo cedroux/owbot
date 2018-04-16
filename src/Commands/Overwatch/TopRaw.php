@@ -14,7 +14,7 @@ class TopRaw extends BaseCommand
     {
         $players = Database::select();
 
-        if (count($players) === 0) {
+        if (!is_array($players) || count($players) === 0) {
             $this->send("Aucun joueur enregistré");
 
             return;
@@ -34,7 +34,7 @@ class TopRaw extends BaseCommand
             $tag = explode('#', $player->battletag)[0];
 
             if (!empty($player->discord)) {
-                $user = $this->message->channel->guild->members->get("id", $player->discord);
+                $user = $this->message->channel->guild->members->get('id', $player->discord);
                 $nick = $user->nick ?? null; // Mandatory assignation to resolve the data
                 $name = !empty($nick) ? $nick : $user->username ?? null;
                 if ($name !== $tag && !empty($name)) {

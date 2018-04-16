@@ -7,7 +7,6 @@ class AdminRestart extends BaseCommand
     public $keywords = ['!restart', '!reboot'];
     public $admin = true;
     public $help = 'Relance le bot';
-    public $periodic = 60 * 60 * 2;
 
     public function execute()
     {

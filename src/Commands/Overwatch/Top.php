@@ -26,7 +26,6 @@ class Top extends BaseCommand
         });
 
         $names = '';
-        $discord = '';
         $ranks = '';
         $guild = $this->message->guild->id;
         $blank = get_emoji($guild, ':blank:');
@@ -34,13 +33,12 @@ class Top extends BaseCommand
         foreach ($players as $key => $player) {
             $tag = '**' . explode('#', $player->battletag)[0] . '**';
 
-            if (!empty($player->discord)) {
-                $discord .= "<@!{$player->discord}>" . $blank . PHP_EOL;
-            } else {
-                $discord .= $blank . PHP_EOL;
-            }
-            $names .= $tag . $blank . PHP_EOL;
             $ranks .= get_emoji($guild, ':rank' . get_rank($player->rank) . ':') . $player->rank . PHP_EOL;
+            $names .= $tag;
+            if (!empty($player->discord)) {
+                $names .= " (<@!{$player->discord}>)";
+            }
+            $names .= $blank . PHP_EOL;
         }
 
         $embed = new MessageEmbed([
@@ -51,16 +49,11 @@ class Top extends BaseCommand
                 [
                     'name'   => 'Rank',
                     'value'  => $ranks,
-                    'inline' => 'true',
+                    'inline' => 'false',
                 ],
                 [
                     'name'   => 'Battletag',
                     'value'  => $names,
-                    'inline' => 'true',
-                ],
-                [
-                    'name'   => 'Discord',
-                    'value'  => $discord,
                     'inline' => 'true',
                 ],
             ],

@@ -6,6 +6,7 @@ use Bot\Commands\BaseCommand;
 use Bot\Database as Database;
 use CharlotteDunois\Yasmin\Client;
 use CharlotteDunois\Yasmin\Models\Message;
+use Exception;
 use React\EventLoop\Factory;
 
 final class Bot
@@ -48,7 +49,7 @@ final class Bot
     /**
      * Bot constructor.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     function __construct()
     {
@@ -104,7 +105,7 @@ final class Bot
                     }
                 }
             });
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo '----------------- ' . $e->getMessage() . PHP_EOL;
         }
 

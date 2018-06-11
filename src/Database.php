@@ -65,14 +65,14 @@ final class Database
         if (!file_exists($db->path)) {
             $handle = fopen($db->path, 'w');
             if ($handle === false) {
-                throw new Exception('Impossible de créer la base');
+                throw new Exception('Unable to create database file (' . $db->path . ')');
             }
             fclose($handle);
         }
         $file = file_get_contents($db->path);
 
         if ($file === false) {
-            throw new Exception('Erreur lors de la lecture de la base');
+            throw new Exception('Can\'t read database file (' . $db->path . ')');
         }
 
         $db->data = json_decode($file);
@@ -91,7 +91,7 @@ final class Database
         $json = json_encode($db->data, JSON_UNESCAPED_UNICODE);
         $r = file_put_contents($db->path, $json);
         if ($r === false) {
-            throw new Exception('Erreur lors de la l\'écriture de la base');
+            throw new Exception('Can\'t write database file (' . $db->path . ')');
         }
 
         return true;

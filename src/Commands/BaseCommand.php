@@ -175,7 +175,7 @@ abstract class BaseCommand
     {
         foreach ($this->config['broadcast'] as $guild => $channels) {
             foreach ($channels as $channel) {
-                $this->client->guilds->get($guild)->channels->get($channel)->send($string);
+                $this->client->channels->get($channel)->send($string);
             }
         }
     }

@@ -33,7 +33,7 @@ class Parser
         $this->battletag = str_replace('#', '-', $battletag);
 
         $this->dom = new Dom;
-        $this->dom->loadFromUrl(self::URL . urlencode($this->battletag));
+        @$this->dom->loadFromUrl(self::URL . urlencode($this->battletag));
     }
 
     /**
@@ -57,7 +57,7 @@ class Parser
     public function getRank(): int
     {
         /** @var Dom\Collection $rank */
-        $rank = $this->dom->find('.competitive-rank div');
+        $rank = @$this->dom->find('.competitive-rank div');
 
         if (!$rank->count()) {
             throw new Exception('Unable to retrieve rank for ' . str_replace('-', '#', $this->battletag));

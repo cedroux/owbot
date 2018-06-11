@@ -4,6 +4,7 @@ namespace Bot\Commands\Overwatch;
 
 use Bot\Commands\BaseCommand;
 use Bot\Parser;
+use Exception;
 
 class PlayerRank extends BaseCommand
 {

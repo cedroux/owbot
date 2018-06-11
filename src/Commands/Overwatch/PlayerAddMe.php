@@ -5,6 +5,7 @@ namespace Bot\Commands\Overwatch;
 use Bot\Commands\BaseCommand;
 use Bot\Database;
 use Bot\Parser;
+use Exception;
 
 class PlayerAddMe extends BaseCommand
 {

@@ -49,7 +49,7 @@ class Top extends BaseCommand
                 [
                     'name'   => 'Rank',
                     'value'  => $ranks,
-                    'inline' => 'false',
+                    'inline' => 'true',
                 ],
                 [
                     'name'   => 'Battletag',
